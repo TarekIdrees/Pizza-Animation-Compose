@@ -1,4 +1,4 @@
-package com.example.pizzaanimation.composables
+package com.example.pizzaanimation.ui.screen.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Header() {
+fun HomeTopbar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()

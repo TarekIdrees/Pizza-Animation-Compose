@@ -1,4 +1,4 @@
-package com.example.pizzaanimation.composables
+package com.example.pizzaanimation.ui.screen.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding

@@ -1,4 +1,4 @@
-package com.example.pizzaanimation.viewmodel
+package com.example.pizzaanimation.ui.screen
 
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel

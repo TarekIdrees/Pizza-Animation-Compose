@@ -1,4 +1,4 @@
-package com.example.pizzaanimation.composables
+package com.example.pizzaanimation.ui.screen.composables
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.pizzaanimation.R
-import com.example.pizzaanimation.viewmodel.HomeUiState
+import com.example.pizzaanimation.ui.screen.HomeUiState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

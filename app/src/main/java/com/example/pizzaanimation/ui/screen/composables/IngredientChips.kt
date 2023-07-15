@@ -1,4 +1,4 @@
-package com.example.pizzaanimation.composables
+package com.example.pizzaanimation.ui.screen.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pizzaanimation.viewmodel.HomeUiState
+import com.example.pizzaanimation.composables.SpaceVertical8
+import com.example.pizzaanimation.ui.screen.HomeUiState
 
 @Composable
 fun Ingredients(state: HomeUiState) {

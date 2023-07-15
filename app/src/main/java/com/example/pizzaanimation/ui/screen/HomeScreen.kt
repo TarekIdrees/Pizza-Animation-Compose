@@ -1,4 +1,4 @@
-package com.example.pizzaanimation.screen
+package com.example.pizzaanimation.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -26,17 +26,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.pizzaanimation.composables.Header
-import com.example.pizzaanimation.composables.Ingredients
-import com.example.pizzaanimation.composables.Pizza
-import com.example.pizzaanimation.composables.PizzaSizeChips
+import com.example.pizzaanimation.ui.screen.composables.HomeTopbar
+import com.example.pizzaanimation.ui.screen.composables.Ingredients
+import com.example.pizzaanimation.ui.screen.composables.Pizza
+import com.example.pizzaanimation.ui.screen.composables.PizzaSizeChips
 import com.example.pizzaanimation.composables.SpaceVertical16
 import com.example.pizzaanimation.composables.SpacerHorizontal8
-import com.example.pizzaanimation.viewmodel.HomeInteractionListener
-import com.example.pizzaanimation.viewmodel.HomeUiState
-import com.example.pizzaanimation.viewmodel.HomeViewModel
-import com.example.pizzaanimation.viewmodel.Ingredient
-import com.example.pizzaanimation.viewmodel.PizzaSize
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -61,7 +56,7 @@ fun HomeContent(state: HomeUiState, pagerState: PagerState, listener: HomeIntera
             .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Header()
+        HomeTopbar()
         SpaceVertical16()
         Pizza(state, pagerState)
         SpaceVertical16()
