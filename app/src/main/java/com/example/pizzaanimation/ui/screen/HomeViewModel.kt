@@ -1,5 +1,6 @@
 package com.example.pizzaanimation.ui.screen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.pizzaanimation.R
@@ -13,6 +14,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor() : ViewModel(), HomeInteractionListener {
     private val _state = MutableStateFlow(HomeUiState())
     val state = _state.asStateFlow()
+
+    private val currentIngredient = mutableListOf<Ingredient>()
 
     init {
         getPizzaSize()
@@ -30,9 +33,6 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeInteractionListener
                     Ingredient("onion", R.drawable.broccoli_3, isSelected = false),
                     Ingredient("mushroom", R.drawable.mushroom_3, isSelected = false),
                     Ingredient("sausage", R.drawable.sausage_3, isSelected = false),
-                    Ingredient("basil", R.drawable.basil_3, isSelected = false),
-                    Ingredient("onion", R.drawable.onion_3, isSelected = false),
-                    Ingredient("onion", R.drawable.broccoli_3, isSelected = false),
                 ),
             )
         }
@@ -76,8 +76,22 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeInteractionListener
         _state.update { it.copy(pizzaSize = size) }
     }
 
+    @ExperimentalFoundationApi
     override fun onClickIngredient(ingredient: Ingredient) {
-        TODO("Not yet implemented")
+        if (currentIngredient.contains(ingredient)) {
+            currentIngredient.remove(ingredient)
+            _state.update {
+                it.copy(
+                    selectedIngredients = currentIngredient.distinct()
+                )
+            }
+        } else {
+            currentIngredient.add(ingredient)
+            _state.update {
+                it.copy(
+                    selectedIngredients = currentIngredient.distinct()
+                )
+            }
+        }
     }
-
 }

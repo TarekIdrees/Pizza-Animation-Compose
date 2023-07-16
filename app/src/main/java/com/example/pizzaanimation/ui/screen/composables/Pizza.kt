@@ -36,6 +36,7 @@ fun Pizza(state: HomeUiState, pagerState: PagerState) {
             contentDescription = "pizza plate",
             contentScale = ContentScale.Crop
         )
+
         HorizontalPager(
             pageCount = state.pizzaBreads.size,
             state = pagerState,

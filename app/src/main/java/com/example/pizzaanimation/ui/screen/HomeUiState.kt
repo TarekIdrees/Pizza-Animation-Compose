@@ -8,6 +8,7 @@ data class HomeUiState(
     val pizzaBreads: List<Pizza> = emptyList(),
     val ingredients: List<Ingredient> = emptyList(),
     val pizzaSizes: List<PizzaSize> = emptyList(),
+    val selectedIngredients: List<Ingredient> = emptyList(),
     val pizzaSize: PizzaSize = PizzaSize("", Sizes.Small,0.dp,false)
 )
 

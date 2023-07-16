@@ -73,7 +73,13 @@ fun HomeContent(state: HomeUiState, pagerState: PagerState, listener: HomeIntera
             }
         )
         SpaceVertical16()
-        Ingredients(state)
+        Ingredients(
+            state,
+            pagerState,
+            onIngredientClicked = {
+                listener.onClickIngredient(it)
+            }
+        )
         Row(
             verticalAlignment = Alignment.Bottom
         ) {
@@ -100,6 +106,7 @@ fun HomeContent(state: HomeUiState, pagerState: PagerState, listener: HomeIntera
         }
     }
 }
+
 @OptIn(ExperimentalFoundationApi::class)
 @Preview(showSystemUi = true)
 @Composable
