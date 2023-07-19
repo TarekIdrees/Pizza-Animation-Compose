@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pizzaanimation.composables.SpaceVertical8
 import com.example.pizzaanimation.ui.screen.HomeUiState
 import com.example.pizzaanimation.ui.screen.Ingredient
 
@@ -24,7 +24,7 @@ import com.example.pizzaanimation.ui.screen.Ingredient
 fun Ingredients(
     state: HomeUiState,
     pagerState: PagerState,
-    onIngredientClicked: (Ingredient) -> Unit
+    onIngredientClicked: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -38,16 +38,20 @@ fun Ingredients(
             fontSize = 12.sp
         )
     }
-    SpaceVertical8()
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        state.ingredients.forEach { ingredient ->
-            item {
-                IngredientChip(state, ingredient, onIngredientClicked)
-            }
+
+        itemsIndexed(state.ingredients) { index: Int, item: Ingredient ->
+            IngredientChip(
+                ingredient = item,
+                isSelected = state.pizzaBreads[pagerState.currentPage].pizzaIngredient[index].isSelected,
+                onClickIngredient = {
+                    onIngredientClicked(index)
+                }
+            )
         }
     }
 }

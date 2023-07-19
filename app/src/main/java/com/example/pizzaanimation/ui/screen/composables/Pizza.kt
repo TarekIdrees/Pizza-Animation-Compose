@@ -49,6 +49,9 @@ fun Pizza(state: HomeUiState, pagerState: PagerState) {
                 contentDescription = "pizza bread",
                 contentScale = ContentScale.Crop
             )
+            state.pizzaBreads[pageIndex].pizzaIngredient.forEach {
+                IngredientsAnimation(it)
+            }
             LaunchedEffect(key1 = state.pizzaSize) {
                 size.value = state.pizzaSize.size
             }

@@ -2,6 +2,7 @@ package com.example.pizzaanimation.ui.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +31,6 @@ import com.example.pizzaanimation.ui.screen.composables.HomeTopbar
 import com.example.pizzaanimation.ui.screen.composables.Ingredients
 import com.example.pizzaanimation.ui.screen.composables.Pizza
 import com.example.pizzaanimation.ui.screen.composables.PizzaSizeChips
-import com.example.pizzaanimation.composables.SpaceVertical16
 import com.example.pizzaanimation.composables.SpacerHorizontal8
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -54,30 +54,27 @@ fun HomeContent(state: HomeUiState, pagerState: PagerState, listener: HomeIntera
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         HomeTopbar()
-        SpaceVertical16()
         Pizza(state, pagerState)
-        SpaceVertical16()
         Text(
             "$${state.cost}",
             fontWeight = FontWeight.Bold,
             fontSize = 22.sp,
         )
-        SpaceVertical16()
         PizzaSizeChips(
             state = state,
             onSelectionChanged = {
                 listener.onClickSize(it)
             }
         )
-        SpaceVertical16()
         Ingredients(
             state,
             pagerState,
             onIngredientClicked = {
-                listener.onClickIngredient(it)
+                listener.onClickIngredient(it,pagerState.currentPage)
             }
         )
         Row(
@@ -119,9 +116,10 @@ fun Preview() {
                 TODO("Not yet implemented")
             }
 
-            override fun onClickIngredient(ingredient: Ingredient) {
+            override fun onClickIngredient(ingredientPosition: Int, pizzaPosition: Int) {
                 TODO("Not yet implemented")
             }
+
 
         })
 }

@@ -15,24 +15,52 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeInteractionListener
     private val _state = MutableStateFlow(HomeUiState())
     val state = _state.asStateFlow()
 
-    private val currentIngredient = mutableListOf<Ingredient>()
-
     init {
         getPizzaSize()
+        getIngredients()
         getPizzaSizes()
         getPizzaBreads()
-        getIngredients()
     }
 
     private fun getIngredients() {
         _state.update {
             it.copy(
                 ingredients = listOf(
-                    Ingredient("basil", R.drawable.basil_3, isSelected = false),
-                    Ingredient("onion", R.drawable.onion_3, isSelected = false),
-                    Ingredient("onion", R.drawable.broccoli_3, isSelected = false),
-                    Ingredient("mushroom", R.drawable.mushroom_3, isSelected = false),
-                    Ingredient("sausage", R.drawable.sausage_3, isSelected = false),
+                    Ingredient(
+                        "basil",
+                        0,
+                        R.drawable.image_basil,
+                        R.drawable.basil_3,
+                        isSelected = false
+                    ),
+                    Ingredient(
+                        "onion",
+                        1,
+                        R.drawable.image_onion,
+                        R.drawable.onion_3,
+                        isSelected = false
+                    ),
+                    Ingredient(
+                        "broccoli",
+                        2,
+                        R.drawable.image_broccoli,
+                        R.drawable.broccoli_3,
+                        isSelected = false
+                    ),
+                    Ingredient(
+                        "mushroom",
+                        3,
+                        R.drawable.image_mushroom,
+                        R.drawable.mushroom_3,
+                        isSelected = false
+                    ),
+                    Ingredient(
+                        "sausage",
+                        4,
+                        R.drawable.image_sausage,
+                        R.drawable.sausage_3,
+                        isSelected = false
+                    ),
                 ),
             )
         }
@@ -42,11 +70,11 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeInteractionListener
         _state.update {
             it.copy(
                 pizzaBreads = listOf(
-                    Pizza(R.drawable.bread_1, _state.value.pizzaSize, emptyList()),
-                    Pizza(R.drawable.bread_2, _state.value.pizzaSize, emptyList()),
-                    Pizza(R.drawable.bread_3, _state.value.pizzaSize, emptyList()),
-                    Pizza(R.drawable.bread_4, _state.value.pizzaSize, emptyList()),
-                    Pizza(R.drawable.bread_5, _state.value.pizzaSize, emptyList()),
+                    Pizza(R.drawable.bread_1, _state.value.pizzaSize, _state.value.ingredients),
+                    Pizza(R.drawable.bread_2, _state.value.pizzaSize, _state.value.ingredients),
+                    Pizza(R.drawable.bread_3, _state.value.pizzaSize, _state.value.ingredients),
+                    Pizza(R.drawable.bread_4, _state.value.pizzaSize, _state.value.ingredients),
+                    Pizza(R.drawable.bread_5, _state.value.pizzaSize, _state.value.ingredients),
                 )
             )
         }
@@ -77,21 +105,24 @@ class HomeViewModel @Inject constructor() : ViewModel(), HomeInteractionListener
     }
 
     @ExperimentalFoundationApi
-    override fun onClickIngredient(ingredient: Ingredient) {
-        if (currentIngredient.contains(ingredient)) {
-            currentIngredient.remove(ingredient)
-            _state.update {
-                it.copy(
-                    selectedIngredients = currentIngredient.distinct()
-                )
+    override fun onClickIngredient(ingredientPosition: Int, pizzaPosition: Int) {
+        val currentUiState = _state.value
+        val updatedPizzaIngredient =
+            currentUiState.pizzaBreads[pizzaPosition].pizzaIngredient.mapIndexed { index, pizzaIngredient ->
+                if (index == ingredientPosition) {
+                    pizzaIngredient.copy(isSelected = !pizzaIngredient.isSelected)
+                } else {
+                    pizzaIngredient
+                }
             }
-        } else {
-            currentIngredient.add(ingredient)
-            _state.update {
-                it.copy(
-                    selectedIngredients = currentIngredient.distinct()
-                )
+        val updatedPizzaBreads = currentUiState.pizzaBreads.mapIndexed { index, pizzaBread ->
+            if (index == pizzaPosition) {
+                pizzaBread.copy(pizzaIngredient = updatedPizzaIngredient)
+            } else {
+                pizzaBread
             }
         }
+        val updatedUiState = currentUiState.copy(pizzaBreads = updatedPizzaBreads)
+        _state.value = updatedUiState
     }
 }

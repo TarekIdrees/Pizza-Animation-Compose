@@ -13,9 +13,11 @@ data class HomeUiState(
 )
 
 data class Ingredient(
-    val name: String,
-    val image: Int,
-    val isSelected: Boolean
+    val name: String = "",
+    val position: Int = 0,
+    val image: Int = 0,
+    val icon: Int = 0,
+    val isSelected: Boolean = false
 )
 
 enum class Sizes{
@@ -33,5 +35,5 @@ data class PizzaSize(
 data class Pizza(
     val image: Int,
     val pizzaSize: PizzaSize,
-    val ingredient: List<Ingredient>,
+    val pizzaIngredient: List<Ingredient>,
 )
